@@ -37,4 +37,16 @@ class CharacterRepository {
     }
     return null;
   }
+
+
+
+Future<List<Character>> getCharacter(String name) async {
+  const url = 'rickandmortyapi.com';
+    final result =
+        await http.get(Uri.https(url, '/api/character/', {'name': name}));
+    final response = characterResponseFromJson(result.body);
+    print('response.results ${response.results!.length}');
+    return response.results!;
+  }
+
 }

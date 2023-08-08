@@ -1,5 +1,6 @@
 import 'package:animated_card_custom/bloc/character/character_bloc.dart';
 import 'package:animated_card_custom/theme/app_theme.dart';
+import 'package:animated_card_custom/widgets/search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,8 +50,15 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(
           "Character Rick and Morty",
           style: GoogleFonts.outfit(
-              fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+              fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+              showSearch(context: context, delegate: SearchCharacter());
+              },
+              icon: Icon(Icons.search))
+        ],
         elevation: 3,
         backgroundColor: AppTheme.primary,
       ),
