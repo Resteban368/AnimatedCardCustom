@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'package:animated_card_custom/models/character.dart';
 import 'package:http/http.dart' as http;
@@ -8,28 +10,31 @@ class CharacterRepository {
   CharacterRepository._();
 
   static final CharacterRepository _singleton = CharacterRepository._();
+  List<Character>? characters;
 
-  Future<List<Result>?> getAllCharacter() async {
+  Future<List<Character>?> getAllCharacter(int page) async {
+    print('getAllCharacter');
     try {
-      var request = http.Request(
-          'GET', Uri.parse('https://rickandmortyapi.com/api/character'));
+      final url = 'https://rickandmortyapi.com/api/character/?page=$page';
 
-      http.StreamedResponse response = await request.send();
+      final result = await http.get(Uri.parse(url));
+      print('result.statusCode ${result.statusCode}');
+      if (result.statusCode < 400) {
+        final characterResponse = CharacterResponse.fromJson(
+            json.decode(result.body) as Map<String, dynamic>);
+        final List<Character>? newCharacters = characterResponse.results;
+        if (characters != null) {
+          characters!.addAll(newCharacters!);
+        } else {
+          characters = newCharacters;
+        }
 
-
-
-      if (response.statusCode < 400) {
-        final respStr = await response.stream.bytesToString();
-        final characterResponse =
-            CharacterResponse.fromMap(json.decode(respStr));
-        return characterResponse.results;
-      } else {
-        print(response.reasonPhrase);
+        print('characters ${characters![0].name}');
+        return characters;
       }
     } catch (e, s) {
       print('error en el repositorio de character getAllCharacter $e => $s');
     }
+    return null;
   }
-
-  
 }

@@ -9,5 +9,6 @@ abstract class CharacterEvent extends Equatable {
 
 
 class LoadedCharacter extends CharacterEvent {
-  const LoadedCharacter();
+  final int page;
+  const LoadedCharacter(this.page);
 }

@@ -11,10 +11,11 @@ class CharacterInitial extends CharacterState {}
 
 
 class CharacterLoaded extends CharacterState {
+  final int page;
 
-  final List<Result> characters;
+  final List<Character> characters;
 
-  const CharacterLoaded(this.characters): super();
+  const CharacterLoaded(this.characters, this.page): super();
 }
 
 
