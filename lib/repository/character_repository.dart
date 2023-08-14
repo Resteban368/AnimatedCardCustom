@@ -1,7 +1,8 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, body_might_complete_normally_nullable
 
 import 'dart:convert';
-import 'package:animated_card_custom/models/character.dart';
+import 'package:animated_card_custom/models/character_models.dart';
+import 'package:animated_card_custom/models/origin_models.dart';
 import 'package:http/http.dart' as http;
 
 class CharacterRepository {
@@ -13,12 +14,9 @@ class CharacterRepository {
   List<Character>? characters;
 
   Future<List<Character>?> getAllCharacter(int page) async {
-    print('getAllCharacter');
     try {
-      final url = 'https://rickandmortyapi.com/api/character/?page=$page';
-
+      const url = 'https://rickandmortyapi.com/api/character/';
       final result = await http.get(Uri.parse(url));
-      print('result.statusCode ${result.statusCode}');
       if (result.statusCode < 400) {
         final characterResponse = CharacterResponse.fromJson(
             json.decode(result.body) as Map<String, dynamic>);
@@ -38,15 +36,35 @@ class CharacterRepository {
     return null;
   }
 
-
-
-Future<List<Character>> getCharacter(String name) async {
-  const url = 'rickandmortyapi.com';
-    final result =
-        await http.get(Uri.https(url, '/api/character/', {'name': name}));
-    final response = characterResponseFromJson(result.body);
-    print('response.results ${response.results!.length}');
-    return response.results!;
+  Future<List<Character>> getCharacterByName(String name) async {
+    try {
+      const url = 'rickandmortyapi.com';
+      final result =
+          await http.get(Uri.https(url, '/api/character/', {'name': name}));
+      final response = characterResponseFromJson(result.body);
+      return response.results!;
+    } catch (e, s) {
+      print('error en el repositorio de character getCharacter $e => $s');
+    }
+    return [];
   }
 
+  //todo consultar el origin
+
+  Future<Origin?> getOriginCharacter(String url) async {
+    try {
+      var request = http.Request(
+          'GET', Uri.parse(url));
+      http.StreamedResponse response = await request.send();
+      if (response.statusCode == 200) {
+        final jsonDecode =
+            Origin.fromMap(json.decode(await response.stream.bytesToString()));
+        return jsonDecode;
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e, s) {
+      print('error en el repositorio de character getOriginCharacter $e => $s');
+    }
+  }
 }

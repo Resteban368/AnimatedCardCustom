@@ -11,6 +11,7 @@ final appRouter = GoRouter(routes: [
     path: '/home',
     builder: (context, state) => const HomeScreen(),
   ),
+ 
   GoRoute(
       path: '/character',
       builder: (context, state) {
@@ -19,4 +20,5 @@ final appRouter = GoRouter(routes: [
           character: character['character'],
         );
       }),
+ 
 ]);

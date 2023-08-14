@@ -1,4 +1,5 @@
 import 'package:animated_card_custom/bloc/character/character_bloc.dart';
+import 'package:animated_card_custom/bloc/origin/origin_bloc.dart';
 import 'package:animated_card_custom/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,9 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(providers: [
+      
       BlocProvider(create: (_) => CharacterBloc()),
+      BlocProvider(create: (_) => OriginBloc()),
      
     ], child: const MainApp());
   }

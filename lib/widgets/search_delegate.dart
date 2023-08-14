@@ -1,4 +1,4 @@
-import 'package:animated_card_custom/models/character.dart';
+import 'package:animated_card_custom/models/character_models.dart';
 import 'package:animated_card_custom/repository/character_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -32,8 +32,7 @@ class SearchCharacter extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-      
-     final repository = CharacterRepository();
+    final repository = CharacterRepository();
 
     Widget circleLoading() {
       return const Center(
@@ -49,25 +48,21 @@ class SearchCharacter extends SearchDelegate {
     }
 
     return FutureBuilder(
-      future: repository.getCharacter(query),
+      future: repository.getCharacterByName(query),
       builder: (context, AsyncSnapshot<List<Character>> snapshot) {
         if (!snapshot.hasData) {
           return circleLoading();
         }
-
-
-        print('snapshot: ${snapshot.data!.length}');
         return ListView.builder(
           itemCount: snapshot.data!.length,
           itemBuilder: (context, index) {
             final character = snapshot.data![index];
             return ListTile(
               onTap: () {
-                //  GoRouter.of(context).go('/character', extra: {
-                //                     'character': character
-                //                   });
-
-                print('index: ${snapshot.data![index].name}');
+                //cerrar el teclado
+                FocusScope.of(context).unfocus();
+                GoRouter.of(context)
+                    .go('/character', extra: {'character': character});
               },
               title: Text(character.name!),
               leading: CircleAvatar(
@@ -79,4 +74,4 @@ class SearchCharacter extends SearchDelegate {
       },
     );
   }
-  }
+}

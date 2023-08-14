@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../models/character.dart';
+import '../models/character_models.dart';
 
 class AnimatedCardCustom extends StatefulWidget {
   const AnimatedCardCustom({

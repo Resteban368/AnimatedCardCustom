@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:animated_card_custom/models/character.dart';
+import 'package:animated_card_custom/models/character_models.dart';
 import 'package:animated_card_custom/repository/character_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -33,3 +33,4 @@ Future<List<Character>?> getAllCharacter(int page) async {
   final consulta = await CharacterRepository().getAllCharacter(page);
   return consulta;
 }
+ 
