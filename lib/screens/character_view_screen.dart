@@ -73,10 +73,37 @@ class CharacterViewScreen extends StatelessWidget {
                                   //llamamos al bloc
                                   BlocProvider.of<OriginBloc>(context).add(
                                       LoadedOrigin(character.origin!.url!));
-                                  _showModalViewLocation(context);
+                                  _showModalViewLocation(context, 'Origin');
                                 },
                                 icon: const Icon(
-                                  Icons.info,
+                                  Icons.info_outline,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )),
+                    Positioned(
+                        top: 75,
+                        right: 20,
+                        child: BounceInDown(
+                          duration: const Duration(milliseconds: 500),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              color: AppTheme.primary,
+                              child: IconButton(
+                                onPressed: () {
+                                  //llamamos al bloc
+                                  BlocProvider.of<OriginBloc>(context).add(
+                                      LoadedOrigin(character.location!.url!));
+                                  _showModalViewLocation(context,'Location');
+                                },
+                                icon: const Icon(
+                                  Icons.location_on_outlined,
                                   color: Colors.white,
                                   size: 30,
                                 ),
@@ -194,7 +221,7 @@ class _ContainerInfo extends StatelessWidget {
   }
 }
 
-void _showModalViewLocation(BuildContext context) {
+void _showModalViewLocation(BuildContext context, String titel) {
   showDialog(
       context: context,
       builder: (context) {
@@ -202,7 +229,7 @@ void _showModalViewLocation(BuildContext context) {
         return AlertDialog(
           title: Center(
             child: Text(
-              'Origin',
+              titel,
               style: GoogleFonts.outfit(
                   fontSize: 20,
                   color: AppTheme.primary,
