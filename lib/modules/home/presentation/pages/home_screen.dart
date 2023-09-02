@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     scrollController.addListener(() async {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
+          print('page $page');
         setState(() {
           isLoading = true;
         });

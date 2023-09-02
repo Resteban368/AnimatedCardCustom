@@ -30,6 +30,12 @@ class CharacterRepository {
         final List<CharacterEntity> newCharacters =
             newCharacters2.map((e) => CharacterEntity.fromModel(e)).toList();
 
+        if (characters != null) {
+          characters!.addAll(newCharacters);
+        } else {
+          characters = newCharacters;
+        }
+
         return newCharacters;
       }
     } catch (e, s) {
@@ -37,6 +43,7 @@ class CharacterRepository {
     }
     return null;
   }
+
 
   Future<List<CharacterEntity>> getCharacterByName(String name) async {
     try {
@@ -48,7 +55,7 @@ class CharacterRepository {
         final characterResponse = CharacterResponse.fromJson(
             json.decode(response.body) as Map<String, dynamic>);
 
-            print('characterResponse.results $characterResponse');
+        print('characterResponse.results $characterResponse');
 
         final List<Character>? newCharacters2 = characterResponse.results;
 
@@ -62,5 +69,4 @@ class CharacterRepository {
     }
     return [];
   }
- 
 }
