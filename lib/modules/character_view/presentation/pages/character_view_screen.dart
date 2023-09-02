@@ -1,10 +1,8 @@
 // ignore_for_file: dead_code, avoid_print
 
 import 'package:animate_do/animate_do.dart';
-import 'package:animated_card_custom/config/theme/app_theme.dart';
 import 'package:animated_card_custom/modules/home/domain/entities/character_entitie.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../widgets/widgest.dart';
 
@@ -29,61 +27,52 @@ class CharacterViewScreen extends StatelessWidget {
         child: Column(
           children: [
             AppBarView(title: character.name!),
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  Info(
-                      id: character.id!,
-                      urlimg: character.image.toString(),
-                      urlOrigin: character.origin!.url!,
-                      urlLocation: character.location!.url!),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BounceInDown(
-                        delay: const Duration(milliseconds: 300),
-                        child: ContainerInfo(
-                          title: 'Status',
-                          info: true
-                              ? texto.replaceAll('Status.', '')
-                              : 'Unknown',
-                        ),
+            Column(
+              children: [
+                Info(
+                    id: character.id!,
+                    urlimg: character.image.toString(),
+                    urlOrigin: character.origin!.url!,
+                    urlLocation: character.location!.url!),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    BounceInDown(
+                      delay: const Duration(milliseconds: 300),
+                      child: ContainerInfo(
+                        title: 'Status',
+                        info: true
+                            ? texto.replaceAll('Status.', '')
+                            : 'Unknown',
                       ),
-                      BounceInDown(
-                        delay: const Duration(milliseconds: 300),
-                        child: ContainerInfo(
-                          title: 'Species',
-                          info: character.species == null
-                              ? 'Unknown'
-                              : species.replaceAll('Species.', ''),
-                        ),
+                    ),
+                    BounceInDown(
+                      delay: const Duration(milliseconds: 300),
+                      child: ContainerInfo(
+                        title: 'Species',
+                        info: character.species == null
+                            ? 'Unknown'
+                            : species.replaceAll('Species.', ''),
                       ),
-                      BounceInDown(
-                        delay: const Duration(milliseconds: 300),
-                        child: ContainerInfo(
-                          title: 'Gender',
-                          info: character.gender == null
-                              ? 'Unknown'
-                              : gender.replaceAll('Gender.', ''),
-                        ),
+                    ),
+                    BounceInDown(
+                      delay: const Duration(milliseconds: 300),
+                      child: ContainerInfo(
+                        title: 'Gender',
+                        info: character.gender == null
+                            ? 'Unknown'
+                            : gender.replaceAll('Gender.', ''),
                       ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-
-
-
-                  ListaViewEpisodios(
-                    character: character,
-                  ),
-
-
-
-
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListaViewEpisodios(
+                  character: character,
+                ),
+              ],
             )
           ],
         ),
@@ -91,7 +80,3 @@ class CharacterViewScreen extends StatelessWidget {
     ));
   }
 }
-
-
-
-
