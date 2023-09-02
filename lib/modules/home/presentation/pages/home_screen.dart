@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: BlocBuilder<CharacterBloc, CharacterState>(
               builder: (context, state) {
                 if (state is CharacterInitial) {
-                  return const Center(child: _GifLoading());
+                  return const Center(child: GifLoading());
                 } else if (state is CharacterLoaded) {
                   return Center(
                       child: Container(
@@ -104,20 +104,3 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 
-
-class _GifLoading extends StatelessWidget {
-  const _GifLoading();
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Container(
-        margin: EdgeInsets.only(
-            bottom: 12, left: 12, right: 12, top: size.height * 0.18),
-        width: 500,
-        height: 400,
-        child: Image.asset(
-          'assets/portal.gif',
-          fit: BoxFit.fill,
-        ));
-  }
-}
